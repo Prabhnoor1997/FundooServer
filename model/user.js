@@ -46,7 +46,7 @@ var User = module.exports = mongoose.model('userInfo', UserSchema);
  */
 module.exports.addUser = (newUser, callback) => {
     save(newUser,callback);
-    newUser.save(callback);
+    //newUser.save(callback);
 }
 
 /**
@@ -54,7 +54,7 @@ module.exports.addUser = (newUser, callback) => {
  */
 save = (newUser, callback) => {
     bcrypt.genSalt(saltRounds, function(err, salt) {
-        console.log("salt"+salt);
+        console.log(salt);
         
         bcrypt.hash(newUser.password, salt, function(err, hash) {
             // Store hash in your password DB.
@@ -62,7 +62,6 @@ save = (newUser, callback) => {
                 return;
             } 
             newUser.password = hash;
-            console.log(hash);
             newUser.save(callback);
         });
     });

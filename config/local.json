@@ -1,6 +1,6 @@
 {
     "mongo": {
-        "url": "mongodb+srv://Parry123:Fundoo123@cluster0.diiq0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'",
+        "url": "mongodb://localhost:27017/fundoo",
         "options": { "useNewUrlParser": true }
     }
 }

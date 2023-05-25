@@ -23,7 +23,6 @@ router.post('/register', (req, res) => {
         dob: req.body.dob
     })
     User.addUser(newUser, (err) => {
-        console.log(err)
         if(err){
             res.json({
                 success: false,
@@ -63,15 +62,15 @@ router.post('/login', (req,res) => {
         }
         if(doc!=null)
             try{
-                    console.log(req.body.password, doc.password)
-                    if(doc.password!==req.body.password){
+                bcrypt.compare(req.body.password, doc.password, (err, result) => {
+                    if(err){
                         res.json({
                             success: false,
                             msg: "Wrong password",
                             status_code: 403
                         })
                     }
-                    if(doc.password===req.body.password){
+                    if(result){
                         var token = jwt.sign({
                             data: doc._id,
                             name: doc.name,
@@ -85,14 +84,13 @@ router.post('/login', (req,res) => {
                             status_code: 200
                         })
                     } else {
-                        console.log("error here")
                         res.json({
                             success: false,
                             msg: "Something went wrong",
                             status_code: 500
                         })
                     } 
-                
+                })
             } catch (Exception){
                 console.log(Exception);
             }

@@ -7,10 +7,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors')
 require("dotenv").config()
 
-mongoose.connect(config.database, {useNewUrlParser: true}).then(()=>{
-    console.log("Database conencted")
-});
-
+mongoose.connect(config.database, {useNewUrlParser: true, useUnifiedTopology: true, })
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,4 +21,3 @@ var env = process.env.NODE_ENV
 app.listen(PORT, () => {
     console.log("Connected")
 });
-
