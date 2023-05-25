@@ -62,35 +62,30 @@ router.post('/login', (req,res) => {
         }
         if(doc!=null)
             try{
-                bcrypt.compare(req.body.password, doc.password, (err, result) => {
-                    if(err){
-                        res.json({
-                            success: false,
-                            msg: "Wrong password",
-                            status_code: 403
-                        })
-                    }
-                    if(result){
-                        var token = jwt.sign({
-                            data: doc._id,
-                            name: doc.name,
-                            email: doc.email,
-                            label: doc.label,
-                            profilePicture: doc.profilePicture,
-                          }, 'secret', { expiresIn: '24h' })
-                        res.json({
-                            success: true,
-                            token: token,
-                            status_code: 200
-                        })
-                    } else {
-                        res.json({
-                            success: false,
-                            msg: "Something went wrong",
-                            status_code: 500
-                        })
-                    } 
-                })
+                if (req.body.password === doc.password) {
+                    // Passwords match
+                    // Generate and send the JWT token or perform any other desired actions
+                    var token = jwt.sign({
+                      data: doc._id,
+                      name: doc.name,
+                      email: doc.email,
+                      label: doc.label,
+                      profilePicture: doc.profilePicture,
+                    }, 'secret', { expiresIn: '24h' });
+                  
+                    res.json({
+                      success: true,
+                      token: token,
+                      status_code: 200
+                    });
+                  } else {
+                    // Passwords do not match
+                    res.json({
+                      success: false,
+                      msg: "Invalid credentials",
+                      status_code: 401
+                    });
+                  }
             } catch (Exception){
                 console.log(Exception);
             }
