@@ -45,7 +45,7 @@ Follow these instructions to get the project up and running on your local machin
 
 5. Start the server:
 
-6. 6. The server should now be running on `http://localhost:3000`.
+6. The server should now be running on `http://localhost:3000`.
 
 ### API Documentation
 
